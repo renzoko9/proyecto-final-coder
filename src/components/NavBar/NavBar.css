@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 36px;
+    border-radius: 24px;
+    background-color: rgb(255, 255, 255, 0.5);
+    box-shadow: 0px 6.4px 6.4px 1.6px #FFF inset;
+    backdrop-filter: blur(16px);
+}
+
+.navbar {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.navbar_item {
+    color: rgb(41, 40, 40);
+    font-weight: 500;
+    text-decoration: inherit;
+    padding: 12px 24px;
+}
+
+.navbar_item:hover {
+    background-color: #daf3e0;
+    border-radius: 24px;
+    backdrop-filter: blur(32px);
+}
