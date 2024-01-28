@@ -1,21 +1,28 @@
 import CartWidget from "../CartWidget/CartWidget";
 import "./NavBar.css";
 import logo from "../../assets/logo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="header">
-      <img src={logo} alt="logo" height={60}></img>
+      <img src={logo} alt="logo" height={60} onClick={ () => navigate("/")}></img>
       <nav className="navbar">
-        <a href="#" className="navbar_item">
+        <Link to="/" className="navbar_item">
           Inicio
-        </a>
-        <a href="#" className="navbar_item">
-          Productos
-        </a>
-        <a href="#" className="navbar_item">
-          Contacto
-        </a>
+        </Link>
+        <Link to="/category/1" className="navbar_item">
+          Celulares
+        </Link>
+        <Link to="/category/2" className="navbar_item">
+          Laptops
+        </Link>
+        <Link to="/category/3" className="navbar_item">
+          Televisores
+        </Link>
       </nav>
       <CartWidget></CartWidget>
     </div>
