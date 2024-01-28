@@ -1,0 +1,12 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+.content {
+  flex: 1 1;
+  margin: 0 24px 24px 24px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
