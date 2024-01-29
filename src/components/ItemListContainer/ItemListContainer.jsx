@@ -9,8 +9,28 @@ import {
 } from "@mui/material";
 import "./ItemListContainer.css";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+// FIREBASE
+import { db } from "../../firebase/firebaseConfig";
+import { query, collection, getDocs } from "firebase/firestore";
 
 const ItemListContainer = (props) => {
+
+  const [itemsData, setItemsData] = useState([]);
+
+  useEffect(() => {
+    const getItems = async() => {
+      const q = query(collection(db, "items"));
+      const docs = [];
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        docs.push({...doc.data(), id: doc.id });
+      });
+      setItemsData(docs);
+    };
+    getItems();
+  }, []);
   const arregloPrueba = [
     {
       id: 1,
@@ -60,30 +80,32 @@ const ItemListContainer = (props) => {
     <div className="list-container">
       <h3>Lista de Productos</h3>
       <div className="list">
-        {arregloPrueba
-          .filter((value) =>
-            id === undefined ? true : value.categoriaId == id
+        {itemsData
+          .filter((item) =>
+            id === undefined ? true : item.categoria == id
           )
-          .map((value, index) => (
-            <Card sx={{ maxWidth: 345 }} key={index}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image="https://coolboxpe.vtexassets.com/arquivos/ids/292488-800-auto?v=638265159325630000&width=800&height=auto&aspect=true"
-                  alt="Laptop"
-                />
-                <Divider></Divider>
-                <CardContent>
-                  <p className="fw-600">{value.categoria}</p>
-                  <h2 className="description">{value.descripcion}</h2>
-                  <div className="flex justify-space-between">
-                    <h3>Precio</h3>
-                    <h2>$/. {value.precioUnitario}</h2>
-                  </div>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          ))}
+          .map((item, index) => {
+            return (
+              <Card sx={{ maxWidth: 345 }} key={index}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    image={item.foto}
+                    alt="Laptop"
+                  />
+                  <Divider></Divider>
+                  <CardContent>
+                    <p className="fw-600">{item.categoria}</p>
+                    <h2 className="description">{item.descripcion}</h2>
+                    <div className="flex justify-space-between">
+                      <h3>Precio</h3>
+                      <h2>$/. {item.precioUnitario}</h2>
+                    </div>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            );
+          })} 
       </div>
     </div>
   );

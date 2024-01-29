@@ -9,18 +9,15 @@ const NavBar = () => {
 
   return (
     <div className="header">
-      <img src={logo} alt="logo" height={60} onClick={ () => navigate("/")}></img>
+      <img id="logo" src={logo} alt="logo" height={60} onClick={ () => navigate("/")}></img>
       <nav className="navbar">
-        <Link to="/" className="navbar_item">
-          Inicio
-        </Link>
-        <Link to="/category/1" className="navbar_item">
+        <Link to="/category/celular" className="navbar_item">
           Celulares
         </Link>
-        <Link to="/category/2" className="navbar_item">
+        <Link to="/category/laptop" className="navbar_item">
           Laptops
         </Link>
-        <Link to="/category/3" className="navbar_item">
+        <Link to="/category/televisor" className="navbar_item">
           Televisores
         </Link>
       </nav>

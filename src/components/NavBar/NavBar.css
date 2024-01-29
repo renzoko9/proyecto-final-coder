@@ -27,3 +27,7 @@
     border-radius: 24px;
     backdrop-filter: blur(32px);
 }
+
+#logo {
+    cursor: pointer;
+}
