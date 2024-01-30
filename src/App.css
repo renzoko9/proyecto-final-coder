@@ -7,6 +7,6 @@
 .content {
   flex: 1 1;
   margin: 0 24px 24px 24px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
