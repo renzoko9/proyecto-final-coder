@@ -1,19 +1,27 @@
-import { useContext } from 'react';
-import './CartWidget.css'
+import { useContext } from "react";
+import "./CartWidget.css";
 
-import { ShoppingCartIcon } from '@heroicons/react/24/solid'
-import { CartContext } from '../../context/CartContext';
+import { ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { CartContext } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CartWidget = () => {
-
-  const { itemsCart } = useContext(CartContext);
+  const { numeroItems } = useContext(CartContext);
+  const navigate = useNavigate();
 
   return (
-    <div className='cart_count'>
-      <ShoppingCartIcon height={24}/>
-      <span>{ itemsCart.length }</span>
+    <div
+      className="cart_wrapper"
+      onClick={() => {
+        navigate("/cart");
+      }}
+    >
+      <ShoppingCartIcon height={24} />
+      <div className="cart_count">
+        <span>{numeroItems}</span>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default CartWidget
+export default CartWidget;

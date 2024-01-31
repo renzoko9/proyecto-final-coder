@@ -4,8 +4,9 @@ import "./App.css";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import NavBar from "./components/NavBar/NavBar";
 import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
-import Checkout from "./components/Checkout/Checkout";
 import { CartProvider } from "./context/CartContext";
+import CartPage from "./components/CartPage/CartPage";
+import CheckoutPage from "./components/Checkout/CheckoutPage";
 
 function App() {
   return (
@@ -20,11 +21,11 @@ function App() {
               element={<ItemListContainer />}
             />
             <Route path="/item/:id" element={<ItemDetailContainer />} />
-            {/* <Route 
-          path="/cart" 
-          element={<Cart />} 
-        /> */}
-            <Route path="/checkout" element={<Checkout />} />
+            <Route 
+              path="/cart" 
+              element={<CartPage />}
+            />
+            <Route path="/checkout" element={<CheckoutPage />} />
             {/* <Route 
           path="/order"
           element={<Order />} 

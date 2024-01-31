@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const ItemDetailContainer = () => {
   const [itemsData, setItemsData] = useState([]);
   const [cantidad, setCantidad] = useState(0);
   let { id } = useParams();
-  const { itemsCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const item = itemsData.find((item) => {
     return item.id === id;
@@ -50,7 +50,7 @@ const ItemDetailContainer = () => {
       precioUnitario: item.precioUnitario,
       cantidad: cantidad
     }
-    itemsCart.push(itemCart)
+    addToCart(itemCart)
   }
 
   return (
@@ -71,7 +71,7 @@ const ItemDetailContainer = () => {
                 <p>{cantidad}</p>
                 <button onClick={() => {agregarItem()}}>+</button>
               </div>
-              <button disabled={cantidad === 0} onClick={() => {agregarItemACarrito()}}>Agregar al carrito</button>
+              <Button variant="contained" disabled={cantidad === 0} onClick={() => {agregarItemACarrito()}}>Agregar al carrito</Button>
             </div>
           </>
         ) : (

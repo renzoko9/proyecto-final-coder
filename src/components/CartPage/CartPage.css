@@ -1,0 +1,15 @@
+.text-secondary {
+    color: #6c6666;
+}
+
+.card-resumen {
+    padding: 24px;
+    border-radius: 24px;
+    background: #dbf0eb;
+    min-width: 260px;
+}
+
+.delete-icon {
+    color: red;
+    cursor: pointer;
+}
