@@ -14,7 +14,7 @@ import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 
 export const CartPage = () => {
-  const { numeroItems, itemsCart, costoTotal, agregarItem, quitarItem, eliminarItem } = useContext(CartContext);
+  const { numeroItems, itemsCart, costoTotal, agregarItem, quitarItem, eliminarItem, vaciarCarrito } = useContext(CartContext);
 
   const navigate = useNavigate();
 
@@ -95,7 +95,8 @@ export const CartPage = () => {
             <p>Total:</p>
             <h2>$/. {costoTotal}</h2>
           </div>
-          <Button variant="contained" onClick={() => {navigate('/checkout')}}>Continuar</Button>
+          <Button variant="contained" onClick={() => {navigate('/checkout')}}>Ir a pagar</Button>
+          <Button variant="contained" color="error" onClick={() => {vaciarCarrito()}}>Vaciar el carrito</Button>
         </div>
       </div>
     </div>

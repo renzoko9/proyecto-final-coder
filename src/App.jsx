@@ -7,6 +7,7 @@ import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailCont
 import { CartProvider } from "./context/CartContext";
 import CartPage from "./components/CartPage/CartPage";
 import CheckoutPage from "./components/Checkout/CheckoutPage";
+import OrderPage from "./components/OrderPage/OrderPage";
 
 function App() {
   return (
@@ -26,10 +27,10 @@ function App() {
               element={<CartPage />}
             />
             <Route path="/checkout" element={<CheckoutPage />} />
-            {/* <Route 
-          path="/order"
-          element={<Order />} 
-        /> */}
+            <Route 
+              path="/order/:orderId"
+              element={<OrderPage />} 
+            />
           </Routes>
         </div>
       </div>
