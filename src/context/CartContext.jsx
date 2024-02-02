@@ -15,7 +15,24 @@ export const CartProvider = ({ children }) => {
   });
 
   const addToCart = (item) => {
-    setItemsCart((prevItemsCart) => [...prevItemsCart, item]);
+    const existingItemIndex = itemsCart.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
+
+    if (existingItemIndex !== -1) {
+      // El producto ya está en el carrito, aumentar la cantidad
+      const updatedItemsCart = [...itemsCart];
+      updatedItemsCart[existingItemIndex].cantidad += item.cantidad;
+      setItemsCart(updatedItemsCart);
+    } else {
+      // El producto no está en el carrito, añadirlo
+      setItemsCart((prevItemsCart) => [...prevItemsCart, item]);
+    }
+  };
+
+  const buscarItemEnCarrito = (itemId) => {
+    // Verificar si el item está en el carrito
+    return itemsCart.some((item) => item.id === itemId);
   };
 
   const quitarItem = (id) => {
@@ -73,6 +90,7 @@ export const CartProvider = ({ children }) => {
         vaciarCarrito,
         userData,
         setUserData,
+        buscarItemEnCarrito
       }}
     >
       {children}

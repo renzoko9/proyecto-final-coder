@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Button, Divider } from "@mui/material";
-import { useParams } from "react-router-dom";
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import { useNavigate, useParams } from "react-router-dom";
 
 import { db } from "../../firebase/firebaseConfig";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
@@ -10,6 +11,7 @@ const OrderPage = () => {
   const { userData } = useContext(CartContext);
   let { orderId } = useParams();
   const [orderData, setOrderData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getOrderData = async () => {
@@ -41,11 +43,12 @@ const OrderPage = () => {
 
   return (
     <div className="flex-column gap-24">
-      <h3>Datos de la compra</h3>
+      <h3>Finalización de la compra</h3>
       <Divider></Divider>
-      <div className="flex-column gap-16">
-        <h3>Hola {userData.nombres}</h3>
-        <p>¡Gracias por tu compra!. Tu orden ha sido generada</p>
+      <div className="flex-column items-center gap-16">
+        <CheckCircleOutlineOutlinedIcon style={{ fontSize: 124, color: "green" }}/>
+        <h2>Hola {userData.nombres}</h2>
+        <h4>¡Gracias por tu compra!. Tu orden ha sido generada con éxito</h4>
         <p>
           Tu orden ha sido procesada exitosamente con el siguiente número de
           orden: { orderData.id }
@@ -56,7 +59,7 @@ const OrderPage = () => {
           detalles de tu orden
         </p>
       </div>
-      <Button variant="contained">Seguir comprando</Button>
+      <Button variant="contained" onClick={() => {navigate('/')}}>Seguir comprando</Button>
     </div>
   );
 };

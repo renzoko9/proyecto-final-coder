@@ -1,18 +1,35 @@
 /* eslint-disable no-unused-vars */
-import { Button, Divider } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  IconButton,
+} from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // FIREBASE
 import { db } from "../../firebase/firebaseConfig";
 import { query, collection, getDocs } from "firebase/firestore";
 import { CartContext } from "../../context/CartContext";
+import {
+  AddCircleOutline,
+  AddShoppingCartOutlined,
+  RemoveCircleOutline,
+  ShoppingCartCheckoutOutlined,
+} from "@mui/icons-material";
+
+import "./ItemDetailContainer.css";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
 const ItemDetailContainer = () => {
   const [itemsData, setItemsData] = useState([]);
   const [cantidad, setCantidad] = useState(0);
   let { id } = useParams();
-  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+  const { addToCart, buscarItemEnCarrito } = useContext(CartContext);
 
   const item = itemsData.find((item) => {
     return item.id === id;
@@ -32,14 +49,14 @@ const ItemDetailContainer = () => {
   }, []);
 
   const agregarItem = () => {
-    setCantidad(cantidad+1)
-  }
+    setCantidad(cantidad + 1);
+  };
 
   const quitarItem = () => {
-    if(cantidad > 0) {
-      setCantidad(cantidad-1)
+    if (cantidad > 0) {
+      setCantidad(cantidad - 1);
     }
-  }
+  };
 
   const agregarItemACarrito = () => {
     const itemCart = {
@@ -48,10 +65,10 @@ const ItemDetailContainer = () => {
       descripcion: item.descripcion,
       categoria: item.categoria,
       precioUnitario: item.precioUnitario,
-      cantidad: cantidad
-    }
-    addToCart(itemCart)
-  }
+      cantidad: cantidad,
+    };
+    addToCart(itemCart);
+  };
 
   return (
     <div className="flex justify-center items-center h-100">
@@ -66,16 +83,59 @@ const ItemDetailContainer = () => {
                 <h2 className="precio">$/.{item.precioUnitario}</h2>
               </div>
               <Divider></Divider>
-              <div className="flex gap-8">
-                <button onClick={() => {quitarItem()}}>-</button>
-                <p>{cantidad}</p>
-                <button onClick={() => {agregarItem()}}>+</button>
-              </div>
-              <Button variant="contained" disabled={cantidad === 0} onClick={() => {agregarItemACarrito()}}>Agregar al carrito</Button>
+
+              {buscarItemEnCarrito(item.id) ? (
+                <Alert severity="success">
+                  Producto agregado al carrito
+                </Alert>
+              ) : (
+                <div className="flex items-center gap-8 quantity">
+                  <IconButton
+                    onClick={() => {
+                      quitarItem();
+                    }}
+                  >
+                    <RemoveCircleOutline />
+                  </IconButton>
+                  <p>{cantidad}</p>
+                  <IconButton
+                    onClick={() => {
+                      agregarItem();
+                    }}
+                  >
+                    <AddCircleOutline />
+                  </IconButton>
+                </div>
+              )}
+              {buscarItemEnCarrito(item.id) ? (
+                <Button
+                  variant="contained"
+                  color="success"
+                  startIcon={<ShoppingCartCheckoutOutlined />}
+                  onClick={() => {
+                    navigate("/cart");
+                  }}
+                >
+                  Ir al carrito
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  startIcon={<AddShoppingCartOutlined />}
+                  disabled={cantidad === 0}
+                  onClick={() => {
+                    agregarItemACarrito();
+                  }}
+                >
+                  Agregar al carrito
+                </Button>
+              )}
             </div>
           </>
         ) : (
-          <p>Cargando...</p>
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
         )}
       </div>
     </div>
