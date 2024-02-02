@@ -91,3 +91,21 @@ span {
 #root .MuiTypography-root {
   font-family: 'Poppins', sans-serif;
 }
+
+/* Estilos para el scrollbar */
+::-webkit-scrollbar {
+  width: 10px; /* Ancho del scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color de fondo de la pista */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ced7cf; /* Color del "pulgar" */
+  border-radius: 5px; /* Bordes redondeados del "pulgar" */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9ea39f; /* Cambio de color al pasar el cursor sobre el "pulgar" */
+}
